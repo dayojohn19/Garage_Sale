@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-r@0q-usq-)ms88-2ooq+yju-r*_b3)w8fq+8dmasf2pmolss3j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '0.0.0.0']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,6 +142,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'images')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'ApplicationGarage/static')
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
