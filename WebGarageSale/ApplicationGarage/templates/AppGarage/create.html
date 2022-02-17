@@ -1,0 +1,75 @@
+{% extends "AppGarage/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <h2>Sell Your Item</h2>
+    {{filledForm}}
+    <hr>
+    <hr>
+</div>
+<div class="container">
+    <hr>
+
+
+    {% if filledForm %}
+    <h3>Succesfully uploaded : {{filledForm.title}} {{ filledForm.image.url}}</h3>
+    <img src="{{ filledForm.image.url}}" alt="connect" style="max-height:300px">
+    <form action="{% url 'bagongbenta' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            IMAGE SOURCE:
+            <input value="{{filledForm.title}}" class="form-control" id="exampleFormControlInput1"
+                placeholder="Item Name..." name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Ano Ito na ibebenta mo?</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Description..."
+                name="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Ito Ba ay</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="category" required>
+                <option>Hayop</option>
+                <option>Bagay</option>
+                <option>Gawa</option>
+                <option>Pagkain</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Magkano</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Starting bid..."
+                name="price" required>
+        </div>
+
+        <div class="form-group">
+            Image Source2 :
+            <input value="{{ filledForm.image.url}}" class="form-control" id="exampleFormControlInput1"
+                placeholder="Image Link..." name="link">
+        </div>
+
+        <button class="btn btn-outline-info" style="color: lightcoral;" type="submit"><b>Submit</b></button>
+
+    </form>
+
+
+    {% else %}
+
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-danger">Upload</button>
+    </form>
+
+    <h2>NOT UPLOADED</h2>
+    {% endif %}
+    <hr>
+
+
+
+    <h1>Bentahan</h1>
+</div>
+
+
+{% endblock %}
