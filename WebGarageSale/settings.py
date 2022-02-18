@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-r@0q-usq-)ms88-2ooq+yju-r*_b3)w8fq+8dmasf2pmolss3j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '0.0.0.0']
 
 
 # Application definition
@@ -81,31 +81,31 @@ WSGI_APPLICATION = 'WebGarageSale.wsgi.application'
 # *********************---Default-----*********************
 # *********************---Default-----*********************
 # *********************---Default-----*********************
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# *********************---ASIA-----*********************
-# *********************---ASIA-----*********************
-# *********************---ASIA-----*********************
-
-client = pymongo.MongoClient(
-    "mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority")
-db = client.test
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': '21',
-        # 'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# *********************---ASIA-----*********************
+# *********************---ASIA-----*********************
+# *********************---ASIA-----*********************
+
+# client = pymongo.MongoClient(
+#     "mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority")
+# db = client.test
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': '21',
+#         # 'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
+#         }
+#     }
+# }
 # 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
 #
 # Password validation
@@ -140,7 +140,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -149,18 +149,18 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'images')
 # MEDIA_URL = '/images/'
-# if DEBUG:
-#     STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')]
-#     MEDIA_URL = '/images/'
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    MEDIA_URL = '/images/'
 
-# else:
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#     STATIC_URL = '/static/'
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_URL = '/static/'
 
-# MEDIA_ROOT = [os.path.join(BASE_DIR, 'images')]
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'images')]
 # MEDIA_URL = '*/'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'ApplicationGarage/static')
