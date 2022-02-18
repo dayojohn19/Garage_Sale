@@ -21,7 +21,7 @@ def index(request):
 
 
 def getListings(request):
-    lists = Listing.objects.all()
+    lists = Listing.objects.all().order_by("-id")
     data = serializers.serialize('json', lists)
     return HttpResponse(data, content_type="application/json")
 
