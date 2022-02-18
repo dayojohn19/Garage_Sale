@@ -141,19 +141,11 @@
         document.body.appendChild(main_container)
     }
 
-    function OnloadItems() {
-        toPopUp = 0
-        var PoUp = setInterval(() => {
-            current = allItemList.shift()
-            Create_ListItem(current.fields);
-            toPopUp++;
-            if (toPopUp === 3) {
-                clearInterval(PoUp);
-            }
-        }, 550)
 
-    }
+
     function Create_ListItem(data) { //ITEM LIST
+
+        CreatedListItem.push(data)
         datas = ['category', 'description', 'link', 'owner', 'price', 'time', 'title'];
         insideDIV = `
                 <div class="item-footer">
@@ -165,7 +157,7 @@
                     <small>Category: ${data.category}</small>
                 </div>
             <img class="item-image" src="${data.link}">
-            <span class="item-price">Presyo: ${data.price}</span>
+            <span class="item-price">₱ ${data.price}</span>
             <br>
             `
         itemContainer = document.createElement('div');
@@ -186,7 +178,6 @@
     }
     async function SendRequest(url) {
         var i = 0
-        allItemList = []
 
         let Allresponse = await fetch(url).then(response => response.json()).then(data => {
             dataCount = data.length
@@ -204,33 +195,69 @@
 </script>
 
 <script>
+    CreatedListItem = []
+    allItemList = []
+
+    // 
     Create_ListContainer()
     SendRequest('KuhainAngListing') // fetch url
     OnloadItems()
 
+    function OnloadItems() {
+        toPopUp = 0
+        var PoUp = setInterval(() => {
+            current = allItemList.shift()
+            Create_ListItem(current.fields);
+            toPopUp++;
+            if (toPopUp === 8) { // number of to pop
+                clearInterval(PoUp);
+                Create_RandomListItem(allItemList)
+                Create_RandomListItem(allItemList)
+                Create_RandomListItem(allItemList)
+            }
+        }, 550)
+    }
 
-    function Create_RandomListItem(min, max) {
-        ItemCount = allItemList.length
-        if (ItemCount > 0) {
-            toIndex = Math.floor(Math.random() * (max - min) + min);
-            if (allItemList[toIndex]) {
-                indexPosition = allItemList.indexOf(allItemList[toIndex])
-                Position = allItemList.splice(toIndex, 1)
-                // console.log('yes: ', Position)
-                console.log('YES')
-                // console.log('Fields: ', Position[0].fields)
-                Create_ListItem(Position[0].fields)
+    function Create_RandomListItem(TheArray) {
+        ArrayLength = TheArray.length
+        if (ArrayLength > 0) {
+            toIndex = Math.floor(Math.random() * (ArrayLength - 0) + 0);
+            if (TheArray[toIndex]) {
+                indexPosition = TheArray.indexOf(TheArray[toIndex])
+                Position = TheArray.splice(toIndex, 1)
+                if (Position[0].fields) {
+                    Position = Position[0].fields
+                    console.log('ye', Position)
+                } else {
+                    Position = Position[0]
+                    console.log('nep', Position)
+                }
+                Create_ListItem(Position)
                 return Position
             }
-            console.log('No still got:  ', ItemCount)
-            Create_RandomListItem(0, (ItemCount - 1))
+            console.log('No still got:  ', ArrayLength)
+            Create_RandomListItem(TheArray)
         } else {
-            console.log('Empty')
+            console.log('/n Empty.. /n Creating From CreatedListItem')
+            Create_RandomListItem(CreatedListItem)
         }
     }
-    // INITIATE THIS TO ADD 
-    Create_RandomListItem(0, allItemList.length)
+    // INITIATE THIS TO ADD
+    // Create_RandomListItem(allItemList)
 
 
+</script>
+
+
+<!-- SCroll -->
+<script>
+    window.onscroll = () => {
+
+
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // Remove_ListItem()
+            Create_RandomListItem(allItemList)
+        }
+    };
 </script>
 {%endblock%}
