@@ -1,34 +1,120 @@
 {% extends "AppGarage/layout.html" %}
 {% load static %}
 {% block body %}
-<div class="container">
-    <h2>Sell Your Item</h2>
-    {{filledForm}}
-    <hr>
-    <hr>
-</div>
-<div class="container">
-    <hr>
+<style>
+    .container form {
+        background-color: rgba(255, 228, 196, 0.323);
+        text-align: center;
+    }
 
+    .button-29 {
+        align-items: center;
+        appearance: none;
+        background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+        border: 0;
+        border-radius: 6px;
+        box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: "JetBrains Mono", monospace;
+        height: 48px;
+        justify-content: center;
+        line-height: 1;
+        list-style: none;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transition: box-shadow .15s, transform .15s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        will-change: box-shadow, transform;
+        font-size: 18px;
+        /* color: black !important; */
+        text-shadow: 0px 0px 4px rgb(68, 53, 53);
+        margin: 15px;
+        color: white;
 
+    }
+
+    .button-29:focus {
+        box-shadow: #8e98e5 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    }
+
+    .button-29:hover {
+        box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+        transform: translateY(-2px);
+    }
+
+    .button-29:active {
+        box-shadow: #7077aa 0 3px 7px inset;
+        transform: translateY(2px);
+    }
+
+    * {
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container">
+    <hr>
     {% if filledForm %}
-    <h3>Succesfully uploaded : {{filledForm.title}} {{ filledForm.image.url}}</h3>
-    <img src="{{ filledForm.image.url}}" alt="connect" style="max-height:300px">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        #form-container {
+            text-align: center;
+            margin: 15px;
+            border-radius: 8px;
+
+        }
+
+        #form-container img {
+            box-shadow: 10px 5px 15px grey;
+        }
+
+        label {
+            font-size: x-large;
+        }
+
+        textarea {
+            font-size: x-large !important;
+            background-color: rgb(242, 255, 222);
+        }
+
+        input,
+        select {
+            font-size: x-large !important;
+        }
+    </style>
+
+
+    <div id="form-container">
+        <h1>{{filledForm.title}}</h1>
+        <img src="{{ filledForm.image.url}}" alt="connect" style="max-width:50%">
+    </div>
+
     <form action="{% url 'bagongbenta' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
-            IMAGE SOURCE:
-            <input value="{{filledForm.title}}" class="form-control" id="exampleFormControlInput1"
+            <input hidden value="{{filledForm.title}}" class="form-control" id="exampleFormControlInput1"
                 placeholder="Item Name..." name="title" required>
         </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Ano Ito na ibebenta mo?</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Description..."
+        <div class="form-floating">
+            <label for="floatingTextarea2">Ano Ito na ibebenta mo?</label>
+            <br>
+            <textarea style="height: 150px; margin-top: 40px;" class="form-control" id="floatingTextarea2" rows="5"
                 name="description" required></textarea>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Ito Ba ay</label>
+            <label for="exampleFormControlSelect1">Ito ay</label>
             <select class="form-control" id="exampleFormControlSelect1" name="category" required>
                 <option>Hayop</option>
                 <option>Bagay</option>
@@ -36,39 +122,70 @@
                 <option>Pagkain</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Magkano</label>
-            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Starting bid..."
-                name="price" required>
+        <div class="form-group" style="margin-top: 20px; background-color: rgb(226, 199, 199);">
+            <input type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="Ilagay kung Magkano Ito" name="price" required>
         </div>
 
         <div class="form-group">
-            Image Source2 :
-            <input value="{{ filledForm.image.url}}" class="form-control" id="exampleFormControlInput1"
+            <input hidden value="{{ filledForm.image.url}}" class="form-control" id="exampleFormControlInput1"
                 placeholder="Image Link..." name="link">
         </div>
 
-        <button class="btn btn-outline-info" style="color: lightcoral;" type="submit"><b>Submit</b></button>
+        <button class="button-29" style="color: rgb(247, 247, 247);" type="submit"><b>Ibenta</b></button>
 
     </form>
 
 
     {% else %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        input {
+            text-align: center;
+            width: 80%;
+            padding: 15px 22px;
+            margin: 15px 5px;
+            box-sizing: border-box;
+            background: rgb(195, 195, 195);
+            background: linear-gradient(247deg, rgba(195, 195, 195, 0.8869922969187675) 0%, rgba(201, 174, 174, 1) 10%, rgba(195, 175, 141, 1) 18%, rgba(178, 186, 154, 1) 27%, rgba(173, 173, 173, 1) 35%, rgba(177, 181, 178, 1) 42%, rgba(183, 191, 192, 1) 50%, rgba(189, 199, 202, 1) 58%, rgba(197, 205, 216, 1) 66%, rgba(204, 201, 224, 1) 75%, rgba(227, 207, 234, 1) 81%, rgba(239, 210, 230, 1) 88%, rgba(255, 219, 232, 1) 100%);
+            font-size: x-large;
+            border: none;
+            border-radius: 8px;
+            border-bottom: 3px solid black;
 
+        }
+
+        input[type=text]:focus {
+            border: 5px solid #eedfff;
+        }
+
+        button {
+            background-color: aqua;
+        }
+
+
+
+        /* CSS */
+    </style>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-danger">Upload</button>
+        <strong>
+            <h1>Ano Ito?</h1>
+        </strong>
+        {{ form.title }}
+        {{form.image}}
+        <!-- <button role="button">Button 29</button> -->
+        <br>
+        <button type="submit" class="button-29">Mag Lagay ng Imahe</button>
     </form>
 
-    <h2>NOT UPLOADED</h2>
     {% endif %}
     <hr>
 
 
 
-    <h1>Bentahan</h1>
 </div>
 
 
