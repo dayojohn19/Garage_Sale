@@ -2,7 +2,6 @@ appdirs==1.4.4
 asgiref==3.4.1
 autopep8==1.6.0
 binance==0.3
-cbpro==1.1.4
 colorama==0.4.4
 configparser==5.2.0
 crayons==0.4.0
