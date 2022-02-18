@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import pymongo
 from pathlib import Path
 import os
 
@@ -77,14 +78,36 @@ WSGI_APPLICATION = 'WebGarageSale.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# *********************---Default-----*********************
+# *********************---Default-----*********************
+# *********************---Default-----*********************
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# *********************---ASIA-----*********************
+# *********************---ASIA-----*********************
+# *********************---ASIA-----*********************
+
+client = pymongo.MongoClient(
+    "mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority")
+db = client.test
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': '21',
+        # 'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
+        }
     }
 }
-
-
+# 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
+#
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
