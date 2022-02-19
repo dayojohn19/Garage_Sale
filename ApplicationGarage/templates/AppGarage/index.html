@@ -211,7 +211,7 @@
         var PoUp = setInterval(() => {
 
             toPopUp++;
-            if (toPopUp >= 1) { // number of to pop
+            if (toPopUp >= allItemList.length) { // number of to pop
                 console.log('Onload1')
                 clearInterval(PoUp);
 
@@ -282,9 +282,10 @@
 
 <!-- SCroll -->
 <script>
+    // document.body.onscroll = console.log('asd')
     window.onscroll = () => {
 
-
+        console.log('Height: ', window.innerHeight)
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             // Remove_ListItem()
             console.log('onscroll')
@@ -551,6 +552,10 @@
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         OnloadItems()
+        console.log('######STTING INTERVE')
+
+        setInterval(Create_RandomListItem(allItemList), 1000);
+
     });
 
 </script>
