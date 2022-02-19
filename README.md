@@ -18,3 +18,12 @@ project of the russian israeli who reside in Philippines to do EcoTech Farming .
 ### Designs
 Styles and Javascripts are in the same file 
 
+# Admin Account
+> Password: `SalePassword`
+> Username: `SaleUsername`
+
+# Database
+> Strings is on MongoDb under johnwebsite
+> Media File DB is still unconfigure,, go to Amazon create DB for Media
+
+``Code is still a mess havent organize it yet but review for a couple of hours and youll understand it ... just create pull request for changes``
