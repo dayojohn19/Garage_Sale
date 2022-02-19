@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'WebGarageSale.wsgi.application'
 # *********************---Default-----*********************
 # *********************---Default-----*********************
 # *********************---Default-----*********************
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # *********************---ASIA-----*********************
 # *********************---ASIA-----*********************
@@ -96,16 +96,19 @@ DATABASES = {
 #     "mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority")
 # db = client.test
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': '21',
-#         # 'ENFORCE_SCHEMA': False,
-#         'CLIENT': {
-#             'host': 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
-#         }
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'GarageSaleDB',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb+srv://websiteprojects:nUihAXEQpGVJombK@cluster0.38ndv.mongodb.net/GarageSaleDB?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
+        }
+    }
+}
+# mongodb+srv: // websiteprojects: < password > @cluster0.38ndv.mongodb.net/GarageSaleDB?retryWrites = true & w = majority
+
+
 # 'mongodb+srv://jc:jc@cluster2.wk77x.mongodb.net/21?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
 #
 # Password validation

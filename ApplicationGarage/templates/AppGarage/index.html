@@ -143,6 +143,9 @@
 
 
     function Create_ListItem(data) { //ITEM LIST
+        dataPrice = data.price.toLocaleString();
+        // console.log('Price: ', dataPrice[1])
+        console.log('Price2: ', dataPrice)
 
         CreatedListItem.push(data)
         datas = ['category', 'description', 'link', 'owner', 'price', 'time', 'title'];
@@ -156,7 +159,7 @@
                     <small>Category: ${data.category}</small>
                 </div>
             <img class="item-image" src="${data.link}">
-            <button onclick="OpenModal('[${data.title}, ${data.price},${data.link},${data.description},${data.owner},${data.contact},${data.time},${data.category}]')"  class="item-price">₱ ${data.price}</button>
+            <button onclick="OpenModal('[${data.title}, ${data.price},${data.link},${data.description},${data.owner},${data.contact},${data.time},${data.category}]')"  class="item-price">₱ ${dataPrice}</button>
 
             <br>
             `
@@ -477,6 +480,7 @@
         data = data.replace("[", "")
         data = data.replace("]", "")
         dataArray = data.split(',')
+        modalPrice = parseInt(dataArray[1]).toLocaleString()
         modal.style.display = "block";
         // 
         modal_content = `
@@ -494,7 +498,7 @@
                 </div>
                 <span class="owner" onclick="makeModalOf('${dataArray[5]},${dataArray[0]},${dataArray[1]}')" )"><a class="toButton" href="#">Mag Mensahe</a></span>
 
-                <span id="data-price">₱ ${dataArray[1]}</span>
+                <span id="data-price">₱ ${modalPrice}</span>
                 <span id="data-time">${dataArray[6]}</span>
                 <span id="data-category">${dataArray[7]}</span>
                 <span  id="button-close"  onclick="closeModal()" class="close">&times;</span>
