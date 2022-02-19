@@ -204,13 +204,15 @@
     // 
     Create_ListContainer()
     SendRequest('KuhainAngListing') // fetch url
-    // OnloadItems()
+
+
     function OnloadItems() {
         toPopUp = 0
         var PoUp = setInterval(() => {
 
             toPopUp++;
             if (toPopUp >= 1) { // number of to pop
+                console.log('Onload1')
                 clearInterval(PoUp);
 
                 Create_RandomListItem(allItemList)
@@ -222,6 +224,8 @@
                 current = allItemList.shift()
                 console.log('Current: ', current)
                 if (current) {
+                    console.log('Onload2')
+
                     Create_ListItem(current.fields);
                 }
 
@@ -249,14 +253,24 @@
                     Position = Position[0]
                     // console.log('nep', Position)
                 }
+                console.log('Re Iterate')
                 Create_ListItem(Position)
                 return Position
             }
             console.log('No still got:  ', ArrayLength)
             Create_RandomListItem(TheArray)
         } else {
-            console.log('/n Empty.. /n Creating From CreatedListItem')
-            Create_RandomListItem(CreatedListItem)
+            console.log('/n Empty.. /n Creating From CreatedListItem', ArrayLength, TheArray)
+            console.log('ELEMENT: ',)
+            if (CreatedListItem.length > 0) {
+                console.log('Still Going')
+                Create_RandomListItem(CreatedListItem)
+            } else {
+                console.log('Returning')
+                return
+            }
+
+
         }
     }
     // INITIATE THIS TO ADD
@@ -532,4 +546,12 @@
 
 
 <!-- END MODAL -->
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        OnloadItems()
+    });
+
+</script>
 {%endblock%}
