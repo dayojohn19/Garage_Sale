@@ -211,12 +211,10 @@
         var PoUp = setInterval(() => {
 
             toPopUp++;
-            if (toPopUp >= allItemList.length) { // number of to pop
+            if (toPopUp >= 20) { // number of to pop
                 console.log('Onload1')
                 clearInterval(PoUp);
 
-                Create_RandomListItem(allItemList)
-                Create_RandomListItem(allItemList)
                 Create_RandomListItem(allItemList)
                 Create_Advertisments()
             } else {
@@ -227,6 +225,8 @@
                     console.log('Onload2')
 
                     Create_ListItem(current.fields);
+                } else {
+                    Create_RandomListItem(allItemList)
                 }
 
             }
@@ -285,7 +285,6 @@
     // document.body.onscroll = console.log('asd')
     window.onscroll = () => {
 
-        console.log('Height: ', window.innerHeight)
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             // Remove_ListItem()
             console.log('onscroll')
@@ -553,10 +552,27 @@
     window.addEventListener('DOMContentLoaded', (event) => {
         OnloadItems()
         console.log('######STTING INTERVE')
+        // setInterval(alert(), 1000);
+        setInterval(function () {
+            Create_RandomListItem(allItemList);
+            console.log('List Item Count: ', ListItemCount)
+            if (ListItemCount > 50) {
+                console.log('Deleteting: ...')
+                Remove_ListItem();
+                Remove_ListItem();
+                Remove_ListItem();
+                Remove_ListItem();
+                Remove_ListItem();
+                Remove_ListItem();
+                ListItemCount -= 50;
 
-        setInterval(Create_RandomListItem(allItemList), 1000);
 
+            }
+
+        }, 1000);
     });
+            // setInterval(Create_RandomListItem(allItemList), 1000);
+
 
 </script>
 {%endblock%}
