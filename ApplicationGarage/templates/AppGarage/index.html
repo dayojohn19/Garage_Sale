@@ -219,8 +219,13 @@
                 Create_RandomListItem(allItemList)
                 Create_Advertisments()
             } else {
+
                 current = allItemList.shift()
-                Create_ListItem(current.fields);
+                console.log('Current: ', current)
+                if (current) {
+                    Create_ListItem(current.fields);
+                }
+
             }
 
         }, 550)
