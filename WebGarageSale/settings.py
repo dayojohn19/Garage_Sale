@@ -100,7 +100,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'GarageSaleDB',
-        'ENFORCE_SCHEMA': False,
+        # 'ENFORCE_SCHEMA': True,
         'CLIENT': {
             'host': 'mongodb+srv://websiteprojects:nUihAXEQpGVJombK@cluster0.38ndv.mongodb.net/GarageSaleDB?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE'
         }
