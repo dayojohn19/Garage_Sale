@@ -205,13 +205,12 @@
     Create_ListContainer()
     SendRequest('KuhainAngListing') // fetch url
     OnloadItems()
-
     function OnloadItems() {
         toPopUp = 0
         var PoUp = setInterval(() => {
 
             toPopUp++;
-            if (toPopUp >= 3) { // number of to pop
+            if (toPopUp >= 1) { // number of to pop
                 clearInterval(PoUp);
 
                 Create_RandomListItem(allItemList)
