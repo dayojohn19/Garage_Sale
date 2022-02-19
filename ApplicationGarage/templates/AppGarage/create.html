@@ -1,6 +1,17 @@
 {% extends "AppGarage/layout.html" %}
 {% load static %}
 {% block body %}
+
+
+<script>
+    function CreateContactForm() {
+        contactForm = document.createElement('div');
+        contactForm.innerHTML = `<h1>Concatc FOrm </h1>`
+        document.body.appendChild(contactForm);
+        console.log('Element Created..')
+    }
+</script>
+
 <style>
     .container form {
         background-color: rgb(255, 252, 247);
@@ -112,7 +123,7 @@
             <label for="floatingTextarea2">Bakit mo ibebenta ito ?</label>
             <br>
             <textarea style="height: 150px; margin-top: 40px;" class="form-control" id="floatingTextarea2" rows="5"
-                name="description" required value="asd">addds</textarea>
+                name="description" required value="asd">Ibebenta Dahil..... </textarea>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Ito ay</label>

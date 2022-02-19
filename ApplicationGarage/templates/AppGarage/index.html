@@ -9,7 +9,9 @@
         background: linear-gradient(162deg, rgba(195, 195, 195, 0.8869922969187675) 0%, rgba(173, 173, 173, 0.7301295518207283) 35%, rgba(219, 249, 255, 1) 100%);
         display: grid;
         /* grid-template-columns: repeat(auto-fill, 200px); */
-        grid-template-columns: repeat(auto-fill, 200px) minmax(min-content, 33vh);
+        grid-template-columns: repeat(auto-fill, 200px) minmax(min-content, 33vh) minmax(min-content, 33vh);
+        /* grid-template-columns: minmax(min-content, 33vh) minmax(min-content, 33vh) minmax(min-content, 33vh); */
+
         /* grid-template-columns: 33% 33% 33%; */
 
         justify-content: space-evenly;
@@ -55,6 +57,7 @@
         /* overflow: scroll; */
         max-height: 200px;
         z-index: 0 !important;
+        height: 200px;
     }
 
 
@@ -84,7 +87,7 @@
     .item-footer {
         text-align: center;
         padding: 20px 16px;
-        z-index: 2 !important;
+        z-index: 0 !important;
         background-color: rgba(66, 85, 137, 0.361);
         opacity: 0;
         position: inherit;
@@ -97,7 +100,7 @@
         /*  */
         max-height: 100%;
         max-width: 100%;
-
+        display: none;
     }
 
     .item-footer:hover {
@@ -105,6 +108,10 @@
         opacity: 1;
         z-index: 2;
 
+    }
+
+    .item-footer small {
+        display: block;
     }
 
     .item-price {
@@ -120,10 +127,6 @@
         border: none;
         border-radius: 4px;
         z-index: 5;
-    }
-
-    .item-footer small {
-        display: block;
     }
 </style>
 
@@ -203,19 +206,29 @@
     function OnloadItems() {
         toPopUp = 0
         var PoUp = setInterval(() => {
-            current = allItemList.shift()
-            Create_ListItem(current.fields);
+
             toPopUp++;
-            if (toPopUp === 8) { // number of to pop
+            if (toPopUp >= 3) { // number of to pop
                 clearInterval(PoUp);
+
                 Create_RandomListItem(allItemList)
                 Create_RandomListItem(allItemList)
                 Create_RandomListItem(allItemList)
+                Create_Advertisments()
+            } else {
+                current = allItemList.shift()
+                Create_ListItem(current.fields);
             }
+
         }, 550)
     }
-
+    var ListItemCount = 0
     function Create_RandomListItem(TheArray) {
+        ListItemCount++;
+        if (ListItemCount % 26 == 0) { //Make advertisement
+            Create_Advertisments()
+        }
+        console.log(ListItemCount)
         ArrayLength = TheArray.length
         if (ArrayLength > 0) {
             toIndex = Math.floor(Math.random() * (ArrayLength - 0) + 0);
@@ -224,10 +237,10 @@
                 Position = TheArray.splice(toIndex, 1)
                 if (Position[0].fields) {
                     Position = Position[0].fields
-                    console.log('ye', Position)
+                    // console.log('ye', Position)
                 } else {
                     Position = Position[0]
-                    console.log('nep', Position)
+                    // console.log('nep', Position)
                 }
                 Create_ListItem(Position)
                 return Position
@@ -277,7 +290,7 @@
         /* Stay in place */
         z-index: 1;
         /* Sit on top */
-        padding-top: 100px;
+        padding-top: 3vh;
         /* Location of the box */
         left: 0;
         top: 0;
@@ -301,16 +314,92 @@
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
+        padding-bottom: 60px;
+        /* text-align: center; */
+        position: relative;
+        border-radius: 8px;
+    }
+
+    .modal-content span {
+        display: block;
+    }
+
+    #data-link {
+
+        align-self: center;
+        border-radius: 8px;
+
+        margin: auto auto;
         text-align: center;
+        width: fit-content;
+        height: fit-content;
+        max-width: 100%;
         position: relative;
     }
+
+    .owner {
+
+        text-align: right;
+        font-size: x-large;
+        padding: 8px;
+        margin: 8px;
+    }
+
+    .toButton {
+        text-decoration: none;
+        background-color: rgb(255, 220, 187);
+        border-radius: 8px;
+        padding: 8px;
+        margin: 8px;
+        color: black;
+        text-shadow: 3px white;
+        border: none;
+        font-size: xx-large;
+        box-shadow: 0 0 6px grey;
+    }
+
+    #data-link img {
+        max-width: 100%;
+        max-height: 45vh;
+        border-radius: 8px;
+        box-shadow: 4px 0px 20px grey;
+    }
+
+    #data-title {
+        text-align: center;
+    }
+
+    #data-description {
+        background-color: rgb(248, 241, 232);
+        text-indent: 2.5rem;
+        text-align: justify;
+        margin: auto;
+        padding: 5px;
+        margin-bottom: 30px;
+        font-size: x-large;
+        max-width: 100%;
+    }
+
+    #data-time {
+        /* text-align: right; */
+
+    }
+
+    #data-price {
+        color: orange;
+        font-size: large;
+    }
+
+
 
     /* The Close Button */
     .close {
         color: #aaaaaa;
         float: right;
-        font-size: 28px;
+        font-size: 50px;
         font-weight: bold;
+        /* margin-bottom: 15px; */
+
     }
 
     .close:hover,
@@ -318,58 +407,106 @@
         color: #000;
         text-decoration: none;
         cursor: pointer;
+
+    }
+
+    textarea {
+        font-size: x-large !important;
+        background-color: rgb(242, 255, 222);
+        width: 100%;
+    }
+
+    #message-sender {
+        font-size: x-large !important;
+        background-color: rgb(222, 242, 255);
+        width: 100%;
+        margin-bottom: 10px;
     }
 </style>
-<div id="modal-container" class="modal-container-style">
 
-
-
-</div>
+<!-- MDOAL STYLE -->
+<!-- <script src="{% static 'AppGarage/contact.js' %}"></script> -->
+<div id="modal-container" class="modal-container-style"></div>
 
 <script>
-    // Get the modal
     var modal = document.getElementById("modal-container");
-
-
-    '[${ data.title }, ${ data.price }, ${ data.link }, ${ data.description }, ${ data.owner }, ${ data.contact }, ${ data.time }, ${ data.category }]'
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks the button, open the modal 
+    // MAKING MODAL
+    // MAKING MODAL
+    // MAKING MODAL
+    function SendMessage(data) {
+        data = data.split(',')
+        theMessage = document.querySelector("#message-contact").value;
+        theTitle = data[1]
+        theContact = data[0]
+        thePrice = data[2]
+        theSender = document.querySelector("#message-sender").value;
+        console.log(data)
+        // 
+        Email.send({
+            Host: "smtp.elasticemail.com",
+            Username: "repapaka20@gmail.com",
+            Password: "20B28409FAB2EC360F970DEBC62ACB854E4B",
+            To: 'dayo_john16@yahoo.com',
+            From: "repapaka20@gmail.com",
+            Subject: 'Gustong BUMILI *****',
+            Body: 'BUYER: ' + theSender + ': ' + theMessage + ' | ' + '\n SELLER: ' + theContact + ' | ' + theTitle + ' P' + thePrice
+        }).then(
+            message => {
+                alert('Naipada ang Iyong Mensahe', message)
+            }
+        );
+        closeModal()
+        // 
+        // alert(theSender + theMessage + theTitle + theContact + thePrice)
+    }
+    function makeModalOf(data) {
+
+        toReplace = document.querySelector("#content-of-modal")
+        modalContactForm = `
+            <h1 id="data-title">Mensahe mo sa Nag Bebenta</h1>
+            <input id="message-sender" placeholder="Paano ka Makokontact">
+            <textarea id="message-contact">Ang iyong gustong sabihin</textarea>
+            <span onclick="closeModal()" class="close">&times;</span>
+            <span><button class="toButton" onclick="SendMessage('${data}')">Ipadala ang Mensahe</button></span>
+        `
+        toReplace.innerHTML = modalContactForm
+    }
     function OpenModal(data) {
         data = data.replace("[", "")
+        data = data.replace("]", "")
         dataArray = data.split(',')
         modal.style.display = "block";
         // 
         modal_content = `
           <div class="modal-content">
             
-            <span>
+            <span id="content-of-modal">
                 <h1 id="data-title">${dataArray[0]}</h1>
-                <span id="data-price">Price: ${dataArray[1]}</span>
+                <span class="data-contact">${dataArray[5]}</span>
+                <span>Mula kay:  ${dataArray[4]}</span>
                 
-                <span id="data-ownder>${dataArray[4]}</span>
-                <span id="data-contact">${dataArray[5]}</span>
-                <span id="data-time">Time: ${dataArray[6]}</span>
-                <span id="data-category">Category: ${dataArray[7]}</span>
-                <p id="data-description">Description: ${dataArray[3]}</p>
+                <p id="data-description">${dataArray[3]}</p>
+                <div id="data-link">
+                <img  src="${dataArray[2]}" style="max-width=100%">
                 
-                <img id="data-link" src="https://i0.wp.com/tutorial.eyehunts.com/wp-content/uploads/2020/12/Pass-string-parameter-in-onClick-function-1.png?w=532&ssl=1" style="max-width=100%">
-                ${dataArray[2]}
+                </div>
+                <span class="owner" onclick="makeModalOf('${dataArray[5]},${dataArray[0]},${dataArray[1]}')" )"><a class="toButton" href="#">Mag Mensahe</a></span>
+
+                <span id="data-price">₱ ${dataArray[1]}</span>
+                <span id="data-time">${dataArray[6]}</span>
+                <span id="data-category">${dataArray[7]}</span>
+                <span  id="button-close"  onclick="closeModal()" class="close">&times;</span>
             </span>
-            <span onclick="closeModal()" class="close">&times;</span>
+            
         </div>
-
-
-        
-
-
         `
-
+        // onclick = "makeModalOf('${dataArray[5]}'
         modal.innerHTML = modal_content
         console.log(typeof (modal_content))
     }
-
+    // ${ dataArray[2] }
     // When the user clicks on <span> (x), close the modal
     function closeModal() {
         modal.style.display = "none";
