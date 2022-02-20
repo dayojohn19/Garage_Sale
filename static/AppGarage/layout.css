@@ -1,7 +1,15 @@
-
-#mySidebar li {
-    color: rgb(255, 139, 139);
+#button-sell {
+    color: rgb(255, 97, 97);
+}
+#button-buy {
+    color: rgb(173, 173, 255);
+}
+#sidebar-category li {
+    color: rgb(139, 203, 255);
     margin-bottom: 3px;
+
+    list-style: none;
+
     
 }
 #mySidebar ul {
@@ -26,12 +34,149 @@
         transition: 0.3s;
         text-shadow: black;
 }
-#sidebar-category {
-    
-}
-#sidebar-category > ol  { 
-    background-color: rgba(205, 255, 238, 0.274);
-    color: aquamarine !important;
 
-}
 
+
+    * {
+        margin: 0;
+    }
+
+    #nav-bar {
+        height: 200px;
+        width: 100%;
+        top: 0;
+        /* position: sticky; */
+        text-align: right;
+        background-color: rgb(149, 255, 0);
+        /* background-image: url("{% static 'AppGarage/header.png' %}"); */
+        background-image: url('header.png');
+        background-size: cover;
+        background-size: contain;
+        background-size: 100% 200px;
+        /* <------ */
+        background-repeat: no-repeat;
+        background-position: center center;
+        /* z-index: -1; */
+    }
+
+    ul#list-nav {
+        list-style: none;
+        margin: 20px;
+        padding: 0;
+
+    }
+
+    ul#list-nav li {
+        display: inline;
+    }
+
+
+    ul#list-nav li a {
+        /* position: relative; */
+        background-color: #d0f094;
+        /* margin-top: 50px; */
+        text-decoration: none;
+        padding: 5px 5px;
+        margin: 55px 3px 0 4px;
+
+        border-radius: 8px;
+        color: black;
+        float: left;
+        /* text-align: center; */
+        width: auto;
+    }
+
+    /* 
+    ul#list-nav li a:hover {
+        background: #5f5f5f;
+    } */
+
+
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        overflow: scroll;
+    }
+
+    .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+        text-shadow: black;
+    }
+
+    .sidebar a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidebar .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+
+    .openbtn {
+        font-size: 20px;
+        cursor: pointer;
+        /* background-color: #111; */
+        /* color: white; */
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        height: 150px;
+        width: 120px;
+        background-color: rgba(244, 7, 7, 0);
+        background-image: url('nav.png');
+        /* background-image: url("{% static 'AppGarage/nav.png' %}"); */
+
+        background-size: cover;
+        /* <------ */
+        background-repeat: no-repeat;
+        background-position: center center;
+        top: 0;
+        right: 1.2vw;
+        position: fixed !important;
+
+        z-index: 2;
+        /* position: absolute; */
+        /* position: absolute; */
+        /* top: 0; */
+    }
+
+    .openbtn:hover {
+        background-color: #444;
+    }
+
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+        .sidebar {
+            padding-top: 15px;
+        }
+
+        .sidebar a {
+            font-size: 18px;
+        }
+    }
+
+    /* body {
+        z-index: 1;
+    } */

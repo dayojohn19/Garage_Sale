@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
 
-
+<!-- <div id="main-container"></div> -->
 <script>
     function CreateContactForm() {
         contactForm = document.createElement('div');
@@ -72,7 +72,9 @@
         border-radius: 8px;
     }
 </style>
-
+<script>
+    document.querySelector("#main-container").innerHTML = `
+    
 <div class="container">
     <hr>
     <!-- To if filledForm -->
@@ -199,5 +201,7 @@
 
 </div>
 
+    `
+</script>
 
 {% endblock %}

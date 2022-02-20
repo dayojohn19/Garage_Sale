@@ -2,19 +2,26 @@
 {% load static %}
 
 {% block body %}
-<link rel="stylesheet" href="{% static 'AppGarage/index.css' %}">
-
-
-<!-- CREATING ELEMENTS WITH SCRIPTS -->
+<div id="theStyles"></div>
 <script>
+    document.querySelector("#theStyles").innerHTML = `<link rel="stylesheet" href="{% static 'AppGarage/index.css' %}">`;
+</script>
 
-    function Create_ListContainer() {
-        main_container = document.createElement('div');
-        main_container.id = 'main-container';
-        document.body.appendChild(main_container)
+<script src="{% static 'AppGarage/layout.js' %}"></script>
+
+
+<div id="modal-container" class="modal-container-style"></div>
+
+
+<!-- END MODAL -->
+
+<script>
+    console.log('Layout JS')
+
+    function fromIndex() {
+        alert('from index' + allItemList)
+        console.log('from index', allItemList)
     }
-
-
 
     function Create_ListItem(data) { //ITEM LIST
         dataPrice = data.price.toLocaleString();
@@ -37,6 +44,7 @@
         itemContainer.innerHTML = insideDIV;
         main_container.appendChild(itemContainer);
     }
+
     function Remove_ListItem() {
         toRemove = document.querySelector(".item-Container");
         console.log('To Remove: ', toRemove)
@@ -50,6 +58,16 @@
         main_container.appendChild(adContainer)
     }
     async function SendRequest(url) {
+        oldAd = document.querySelectorAll('.ad-container');
+        oldAd.forEach(element => {
+            element.remove();
+        })
+        oldList = document.querySelectorAll(".item-Container")
+        oldList.forEach(element => {
+            element.remove();
+        });
+        CreatedListItem = []
+        allItemList = []
         var i = 0
 
         let Allresponse = await fetch(url).then(response => response.json()).then(data => {
@@ -65,15 +83,14 @@
         })
     }
 
-</script>
 
-<script>
-    CreatedListItem = []
-    allItemList = []
 
-    // 
-    Create_ListContainer()
-    SendRequest('KuhainAngListing') // fetch url
+
+    //
+
+    console.log('**** SENDING REQUEST ***')
+    geturlListing = "{% url 'KuhainAngListing' categ='all' %}"
+    SendRequest(geturlListing) // fetch url
 
 
     function OnloadItems() {
@@ -143,15 +160,17 @@
 
         }
     }
+
+
+
+
     // INITIATE THIS TO ADD
     // Create_RandomListItem(allItemList)
 
 
-</script>
 
 
-<!-- SCroll -->
-<script>
+
     // document.body.onscroll = console.log('asd')
     window.onscroll = () => {
 
@@ -161,14 +180,9 @@
             Create_RandomListItem(allItemList)
         }
     };
-</script>
 
 
-<!-- MODAL -->
-<!-- Trigger/Open The Modal -->
 
-<div id="modal-container" class="modal-container-style"></div>
-<script>
     var modal = document.getElementById("modal-container");
     var span = document.getElementsByClassName("close")[0];
 
@@ -205,11 +219,11 @@
 
         toReplace = document.querySelector("#content-of-modal")
         modalContactForm = `
-            <h1 id="data-title">Mensahe mo sa Nag Bebenta</h1>
-            <input id="message-sender" placeholder="Paano ka Makokontact">
-            <textarea id="message-contact">Ang iyong gustong sabihin</textarea>
-            <span onclick="closeModal()" class="close">&times;</span>
-            <span><button class="toButton" onclick="SendMessage('${data}')">Ipadala ang Mensahe</button></span>
+    <h1 id="data-title">Mensahe mo sa Nag Bebenta</h1>
+    <input id="message-sender" placeholder="Paano ka Makokontact">
+        <textarea id="message-contact">Ang iyong gustong sabihin</textarea>
+        <span onclick="closeModal()" class="close">&times;</span>
+        <span><button class="toButton" onclick="SendMessage('${data}')">Ipadala ang Mensahe</button></span>
         `
         toReplace.innerHTML = modalContactForm
     }
@@ -221,33 +235,33 @@
         modal.style.display = "block";
         // 
         modal_content = `
-          <div class="modal-content">
-            
+        <div class="modal-content">
+
             <span id="content-of-modal">
                 <h1 id="data-title">${dataArray[0]}</h1>
                 <span class="data-contact">${dataArray[5]}</span>
                 <span>Mula kay:  ${dataArray[4]}</span>
-                
+
                 <p id="data-description">${dataArray[3]}</p>
                 <div id="data-link">
-                <img  src="${dataArray[2]}" style="max-width=100%">
-                
+                    <img src="${dataArray[2]}" style="max-width=100%">
+
                 </div>
                 <span class="owner" onclick="makeModalOf('${dataArray[5]},${dataArray[0]},${dataArray[1]}')" )"><a class="toButton" href="#">Mag Mensahe</a></span>
 
-                <span id="data-price">₱ ${modalPrice}</span>
-                <span id="data-time">${dataArray[6]}</span>
-                <span id="data-category">${dataArray[7]}</span>
-                <span  id="button-close"  onclick="closeModal()" class="close">&times;</span>
-            </span>
-            
-        </div>
-        `
+            <span id="data-price">₱ ${modalPrice}</span>
+            <span id="data-time">${dataArray[6]}</span>
+            <span id="data-category">${dataArray[7]}</span>
+            <span id="button-close" onclick="closeModal()" class="close">&times;</span>
+        </span>
+
+    </div>
+    `
         // onclick = "makeModalOf('${dataArray[5]}'
         modal.innerHTML = modal_content
         console.log(typeof (modal_content))
     }
-    // ${ dataArray[2] }
+    // ${dataArray[2]}
     // When the user clicks on <span> (x), close the modal
     function closeModal() {
         modal.style.display = "none";
@@ -260,18 +274,16 @@
             modal.style.display = "none";
         }
     }
-</script>
 
 
-<!-- END MODAL -->
 
 
-<script>
     window.addEventListener('DOMContentLoaded', (event) => {
         OnloadItems()
         console.log('######STTING INTERVE')
         // setInterval(alert(), 1000);
         setInterval(function () {
+
             Create_RandomListItem(allItemList);
             console.log('List Item Count: ', ListItemCount)
             if (ListItemCount > 50) {
@@ -292,5 +304,7 @@
             // setInterval(Create_RandomListItem(allItemList), 1000);
 
 
+
 </script>
+
 {%endblock%}

@@ -15,13 +15,20 @@ from .models import Listing, Alllisting
 def index(request):
 
     if request.user.is_anonymous:
-        return render(request, "AppGarage/index.html")
+        return render(request, "AppGarage/index.html",{'cat': 'cat'})
 
+    return render(request, "AppGarage/index.html", {'cat': 'cat'})
+
+
+def category(request, category):
     return render(request, "AppGarage/index.html")
 
 
-def getListings(request):
-    lists = Listing.objects.all().order_by("-id")
+def getListings(request, categ):
+    if categ == 'all':
+        lists = Listing.objects.all().order_by("-id")
+    else:
+        lists = Listing.objects.filter(category=categ).order_by("-id")
     data = serializers.serialize('json', lists)
     return HttpResponse(data, content_type="application/json")
 
